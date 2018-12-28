@@ -13,16 +13,25 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::apiResources([
-    'role' => 'RoleController',
-    'room' => 'RoomController',
-    'activitycategory' => 'ActivityCategoryController',
-    'activity' => 'ActivityController',
-    'user' => 'UserController',
-    'roomproperty' => 'RoomPropertyController',
 
-]);
 
+
+
+
+Route::post('/login', 'UserController@login');
+Route::post('/register', 'UserController@register');
+
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::apiResources([
+        'role' => 'RoleController',
+        'room' => 'RoomController',
+        'activitycategory' => 'ActivityCategoryController',
+        'activity' => 'ActivityController',
+        'user' => 'UserController',
+        'roomproperty' => 'RoomPropertyController',
+    ]);
+});
 
 
 /*
