@@ -15,7 +15,7 @@ class ActivityCategoryController extends Controller
      */
     public function index()
     {
-        $activityCategories = ActivityCategory::paginate(10);
+        $activityCategories = ActivityCategory::All();
 
         return ActivityCategoryResource::collection($activityCategories);
     }
