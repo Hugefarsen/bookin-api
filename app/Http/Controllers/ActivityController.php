@@ -31,12 +31,13 @@ class ActivityController extends Controller
         $activity = $request->isMethod('put') ? Activity::findOrFail
         ($request->activity_id) : new Activity;
 
+
         $activity->id = $request->input('activity_id');
         $activity->start = $request->input('start');
         $activity->end = $request->input('end');
         $activity->room_id = $request->input('room_id');
-        $activity->name = $request->input('name');
-        $activity->description = $request->input('description');
+        $activity->category_id = $request->input('category_id');
+
 
         if ($activity->save()){
             return new ActivityResource($activity);
@@ -52,8 +53,6 @@ class ActivityController extends Controller
     public function show($id)
     {
         $activity = Activity::findOrFail($id);
-
-
 
         return new ActivityResource($activity);
     }

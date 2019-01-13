@@ -17,9 +17,8 @@ class CreateActivitiesTable extends Migration
             $table->increments('id');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->string('name');
-            $table->string('description');
             $table->integer('room_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->timestamps();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });

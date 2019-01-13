@@ -21,12 +21,11 @@ class ActivityResource extends JsonResource
         return [
             'start' => $this->start,
             'end' => $this->end,
-            'name' => $this->name,
-            'description' => $this->description,
-            'owner' => $this->owner,
+                'owner' => $this->owner,
             'user' => $this->users,
             'room' => $room,
             'categories' => $this->categories,
+            'id' => $this->id,
         ];
     }
 }

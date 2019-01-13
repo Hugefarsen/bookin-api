@@ -27,7 +27,7 @@ class Activity extends Model
 
     public function categories()
     {
-        return $this->belongsToMany('App\ActivityCategory', 'activities_activity_categories', 'category_id', 'activity_id');
+        return $this->belongsTo('App\ActivityCategory', 'category_id');
     }
 
     public function room()

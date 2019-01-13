@@ -20,6 +20,9 @@ class CreateActivityCategoriesTable extends Migration
             $table->string('description');
         });
 
+        Schema::table('activities', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('activity_categories')->onDelete('cascade');
+        });
     }
 
     /**
