@@ -25,7 +25,7 @@ class Activity extends Model
         return $this->belongsToMany('App\User', 'activity_user', 'activity_id', 'user_id');
     }
 
-    public function categories()
+    public function category()
     {
         return $this->belongsTo('App\ActivityCategory', 'category_id');
     }

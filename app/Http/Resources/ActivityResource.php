@@ -15,16 +15,14 @@ class ActivityResource extends JsonResource
     public function toArray($request)
     {
         //return parent::toArray($request);
-        $room = $this->room;
-        $room['properties'] = $this->room->properties;
 
         return [
             'start' => $this->start,
             'end' => $this->end,
-                'owner' => $this->owner,
-            'user' => $this->users,
-            'room' => $room,
-            'categories' => $this->categories,
+            'owner' => $this->owner,
+            'users' => $this->users,
+            'room' => $this->room,
+            'category' => $this->category,
             'id' => $this->id,
         ];
     }

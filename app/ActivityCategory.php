@@ -12,6 +12,7 @@ class ActivityCategory extends Model
 
     public function activities()
     {
-        return $this->belongsToMany('App\Activity', 'activities_activity_categories', 'activity_id', 'category_id');
+        return $this->hasMany('App\Activity', 'category_id', 'id');
+
     }
 }

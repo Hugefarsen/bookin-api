@@ -16,7 +16,6 @@ class RoomProperties extends Migration
         Schema::create('room_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('room_id')->unsigned();
-            $table->string('activity_type');;
             $table->string('property');
             $table->string('value');
             $table->timestamps();

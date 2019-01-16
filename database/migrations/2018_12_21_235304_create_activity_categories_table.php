@@ -32,6 +32,10 @@ class CreateActivityCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::table('activities', function (Blueprint $table) {
+           $table->dropForeign('activities_category_id_foreign');
+        });
+
         Schema::dropIfExists('activity_categories');
     }
 }
