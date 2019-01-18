@@ -34,6 +34,7 @@ class RoomController extends Controller
         $room->id = $request->input('room_id');
         $room->description = $request->input('description');
         $room->name = $request->input('name');
+        $room->size = $request->input('size');
 
         if ($room->save()){
             return new RoomResource($room);
