@@ -19,6 +19,18 @@ class CreateRolesTable extends Migration
             $table->timestamps();
 
         });
+
+        $admin = new App\Role;
+        $admin->role = 'Admin';
+        $admin->save();
+
+        $supervisor = new App\Role;
+        $supervisor->role = 'Supervisor';
+        $supervisor->save();
+
+        $user = new App\Role;
+        $user->role = 'User';
+        $user->save();
     }
 
     /**

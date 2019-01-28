@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Activity;
 use App\Http\Resources\ActivityResource;
+use Illuminate\Support\Facades\DB;
 
 class ActivityController extends Controller
 {
@@ -31,17 +33,42 @@ class ActivityController extends Controller
         $activity = $request->isMethod('put') ? Activity::findOrFail
         ($request->activity_id) : new Activity;
 
+        $start = $request->input('start');
+        $end = $request->input('end');
+        $room_id = $request->input('room_id');
+
+        $preBooked = DB::table('activities')
+            ->where('room_id', $room_id)
+            ->whereBetween('start', [$request->input('start'), $request->input('end')])
+            ->orWhere(function ($query) use ($start, $room_id) {
+                $query->where('room_id', $room_id);
+                $query->where('start', '<=', $start);
+                $query->where('end', '>=', $start);
+            })
+            ->orWhere(function ($query) use ($end, $room_id) {
+                $query->where('room_id', $room_id);
+                $query->where('end', '<=', $end);
+                $query->where('start', '>=', $end);
+            })
+            ->get();
+
+
+        if (count($preBooked) > 0) {
+            return response()->json(['prebooked'=>$preBooked], 409);
+        }
 
         $activity->id = $request->input('activity_id');
-        $activity->start = $request->input('start');
-        $activity->end = $request->input('end');
+        $activity->start = $start;
+        $activity->end = $end;
         $activity->room_id = $request->input('room_id');
         $activity->category_id = $request->input('category_id');
 
-
         if ($activity->save()){
-            return new ActivityResource($activity);
+            $owner = User::find($request->input('owner'));
+            $activity->owner()->attach($owner);
         }
+
+        return new ActivityResource($activity);
     }
 
     /**
