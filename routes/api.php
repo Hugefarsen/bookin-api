@@ -25,6 +25,8 @@ Route::post('/register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
 
     Route::put('activity/{id}', 'ActivityController@store');
+    Route::put('activity/{id}/book', 'ActivityController@book');
+    Route::put('activity/{id}/cancel', 'ActivityController@cancel');
 
     Route::apiResources([
         'role' => 'RoleController',

@@ -85,6 +85,36 @@ class ActivityController extends Controller
     }
 
     /**
+     * Book the specified activity in DB.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function book(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $activity = Activity::findOrFail($request->input('activity_id'));
+        $activity->users()->attach($userId);
+
+        return response()->json(new ActivityResource($activity), 200);
+    }
+
+    /**
+     * Unbook the specified activity in DB.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $activity = Activity::findOrFail($request->input('activity_id'));
+        $activity->users()->detach($userId);
+
+        return response()->json(new ActivityResource($activity), 200);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
