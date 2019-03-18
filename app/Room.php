@@ -14,8 +14,4 @@ class Room extends Model
         'pivot', 'created_at', 'updated_at'
     ];
 
-    public function properties()
-    {
-        return $this->hasMany('App\RoomProperty');
-    }
 }
