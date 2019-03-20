@@ -121,8 +121,12 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $success = User::create($input);
-        $success['token'] =  $success->createToken('Bookin')-> accessToken;
-        return response()->json(['success'=>$success], $this-> successStatus);
+        $success->roles()->attach(3);
+
+        $returningUser = new UserResource(User::findOrFail($success['id']));
+
+        $token =  $success->createToken('Bookin')->accessToken;
+        return response()->json(['success'=>$returningUser, 'token' => $token], $this->successStatus);
     }
 
     /**
@@ -134,5 +138,26 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return response()->json(['success' => $user], $this-> successStatus);
+    }
+
+    /**
+     * Change password
+     * "$2y$10$PTlzmF.tmcSPgHJWuUo02.3Wv3Yda2O4fjx4HqV6FZ0JDGn8em6qW"
+     * "$2y$10$PTlzmF.tmcSPgHJWuUo02.3Wv3Yda2O4fjx4HqV6FZ0JDGn8em6qW"
+     *
+     * "$2y$10$zcuCtCyvtLEKbUv2pB9eTeKvvUQOSIF/7s4U546vxEhSXNE2G3iFC"
+     * "$2y$10$0sjvcubGFXS/wIF2ynFy0Of4OTPsqOgEAGJiNPCYWuBehOQU9P.yC"
+     */
+    public function changePassword(Request $request){
+        $user = User::findOrFail($request['id']);
+
+
+        if($user->email === request('email')){
+            $user->password = bcrypt(request('new_password'));
+            $user->save();
+            return response()->json(['success' => 'Password Changed'], $this->successStatus);
+        } else {
+            return response()->json(['error'=>'Unauthorised'], 401);
+        }
     }
 }

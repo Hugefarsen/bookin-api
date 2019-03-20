@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'role' => $this->roles,
             'email' => $this->email,
-            'ownsActivity' => $this->ownsActivity,
+            'ownsActivity' => ActivityResource::collection($this->ownsActivity),
             'goesToActivity' => ActivityResource::collection($this->goesToActivity),
             'id' => $this->id,
         ];

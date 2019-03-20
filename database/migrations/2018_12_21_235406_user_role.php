@@ -26,6 +26,21 @@ class UserRole extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
 
         });
+
+        \Illuminate\Support\Facades\DB::table('user_roles')->insert(array(
+            'user_id' => '1',
+            'role_id' => '1'
+        ));
+
+        \Illuminate\Support\Facades\DB::table('user_roles')->insert(array(
+            'user_id' => '1',
+            'role_id' => '2',
+        ));
+
+        \Illuminate\Support\Facades\DB::table('user_roles')->insert(array(
+            'user_id' => '1',
+            'role_id' => '3',
+        ));
     }
 
     /**

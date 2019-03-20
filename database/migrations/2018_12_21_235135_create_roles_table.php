@@ -31,6 +31,17 @@ class CreateRolesTable extends Migration
         $user = new App\Role;
         $user->role = 'User';
         $user->save();
+
+        // Insert a adminuser
+        \Illuminate\Support\Facades\DB::table('users')->insert(
+            array(
+                'name' => 'admin',
+                'email' => 'admin@bookin.se',
+                'password' => '$2y$10$XYBtxbVLWMzmmAPxpM2QJO6tXI9gp2fYU2S01sSuYIY2NO0I1vyZa', //secret
+            )
+        );
+
+
     }
 
     /**
