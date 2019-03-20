@@ -13,14 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-
-
-
-
-
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@register');
-
 
 Route::group(['middleware' => 'auth:api'], function(){
 
@@ -38,29 +32,3 @@ Route::group(['middleware' => 'auth:api'], function(){
         'roomproperty' => 'RoomPropertyController',
     ]);
 });
-
-
-/*
-
-Route::post('/register', function (Request $request){
-   return
-       $request;
-});
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:api')->get('/room', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:api')->get('/activity', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-*/
